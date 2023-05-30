@@ -3,7 +3,7 @@
       <div class="row h-100 m-0 justify-content-center align-items-center">
         <div class="col mb-5">
           <div class="d-flex justify-content-center unselectable mb-4">
-            <img class="register-logo" src="../../assets//logo/orange_logo_transparent.png" alt="NBU Medical Service Logo">
+            <img class="register-logo" src="../../assets/logo/logo_transparent_xs.png" alt="NBU Recipes Logo">
           </div>
           <div class="fs-48 main-title-text mb-3">
             Register
@@ -53,63 +53,6 @@
               </div>
             </div>
 
-            <div class="mb-4">
-              <div class="mb-2 grey-color">Register as a:</div>
-              <mat-radio-group (change)="onRadioChange($event)" formControlName="role">
-                <mat-radio-button class="mr-5" value="PATIENT" [checked]=true>
-                  Patient
-                </mat-radio-button>
-                <mat-radio-button value="DOCTOR">
-                  Doctor
-                </mat-radio-button>
-              </mat-radio-group>
-            </div>
-
-            <div *ngIf="registerForm.controls.role.value === 'PATIENT'">
-              <div class="mb-3">
-                <mat-form-field class="w-100">
-                  <mat-label>Unique Citizen Number</mat-label>
-                  <input matInput name="uniqueUserNumber" formControlName="uniqueUserNumber" required>
-                  <mat-error>{{getRegisterUniqueNumberErrorMessage()}}</mat-error>
-                </mat-form-field>
-              </div>
-
-              <div class="mb-3" [hidden]="doctors.length == 0">
-                <mat-form-field class="w-100">
-                  <mat-label>Select GP</mat-label>
-                  <mat-select name="gp" formControlName="gp" required>
-                    <mat-option *ngFor="let doctor of doctors" [value]="doctor">
-                      {{doctor.name}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-              <div class="mb-4 fs-18 font-weight-bolder" *ngIf="doctors.length == 0">
-                No doctors registered in our service yet!
-              </div>
-            </div>
-
-            <div *ngIf="registerForm.controls.role.value === 'DOCTOR'">
-              <div class="mb-3">
-                <mat-form-field class="w-100">
-                  <mat-label>Unique Doctor Number</mat-label>
-                  <input matInput name="uniqueUserNumber" formControlName="uniqueUserNumber" required>
-                  <mat-error>{{getRegisterUniqueNumberErrorMessage()}}</mat-error>
-                </mat-form-field>
-              </div>
-
-              <div class="mb-3">
-                <mat-form-field class="w-100">
-                  <mat-label>Select Specialization</mat-label>
-                  <mat-select name="specialization" formControlName="specialization" required>
-                    <mat-option *ngFor="let specialization of specializations" [value]="specialization">
-                      {{Specialization[specialization]}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-            </div>
-  
             <button mat-raised-button class="w-100 red-nbu-button white-color text-uppercase lg-spaced-text register-button-text"
              [disabled]="!registerForm.valid" type="submit">
               Register
