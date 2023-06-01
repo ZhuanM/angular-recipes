@@ -64,6 +64,9 @@ import { AuthEffects } from './auth/store/auth.effects';
 import { ExploreEffects } from './explore/store/explore.effects';
 import { HeaderEffects } from './header/store/header.effects';
 import { FavoritesEffects } from './favorites/store/favorites.effects';
+import { RecipePageComponent } from './recipe-page/recipe-page.component';
+import { RecipePageEffects } from './recipe-page/store/recipe-page.effects';
+import { RecipeCardComponent } from './shared/recipe-card/recipe-card.component';
 
 
 const appearance: MatFormFieldDefaultOptions = {
@@ -82,6 +85,8 @@ const appearance: MatFormFieldDefaultOptions = {
     AppSnackbarComponent,
     ExploreComponent,
     FavoritesComponent,
+    RecipePageComponent,
+    RecipeCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -96,6 +101,7 @@ const appearance: MatFormFieldDefaultOptions = {
       HeaderEffects,
       ExploreEffects,
       FavoritesEffects,
+      RecipePageEffects,
     ]),
     StoreRouterConnectingModule.forRoot(),
     AppRoutingModule,

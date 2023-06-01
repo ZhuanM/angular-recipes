@@ -4,6 +4,7 @@ import * as fromHeader from '../../header/store/header.reducer';
 import * as fromHome from '../../home/store/home.reducer';
 import * as fromExplore from '../../explore/store/explore.reducer';
 import * as fromFavorites from '../../favorites/store/favorites.reducer';
+import * as fromRecipePage from '../../recipe-page/store/recipe-page.reducer';
 
 export interface AppState {
   auth: fromAuth.State,
@@ -12,4 +13,5 @@ export interface AppState {
   home: fromHome.State,
   explore: fromExplore.State,
   favorites: fromFavorites.State,
+  recipePage: fromRecipePage.State,
 };
