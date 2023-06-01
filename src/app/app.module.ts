@@ -58,6 +58,12 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { LoaderComponent } from './shared/loader/loader.component';
 import { AppSnackbarComponent } from './shared/snackbars/app-snackbar/app-snackbar.component';
+import { ExploreComponent } from './explore/explore.component';
+import { FavoritesComponent } from './favorites/favorites.component';
+import { AuthEffects } from './auth/store/auth.effects';
+import { ExploreEffects } from './explore/store/explore.effects';
+import { HeaderEffects } from './header/store/header.effects';
+import { FavoritesEffects } from './favorites/store/favorites.effects';
 
 
 const appearance: MatFormFieldDefaultOptions = {
@@ -74,6 +80,8 @@ const appearance: MatFormFieldDefaultOptions = {
     RegisterComponent,
     LoaderComponent,
     AppSnackbarComponent,
+    ExploreComponent,
+    FavoritesComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,6 +92,10 @@ const appearance: MatFormFieldDefaultOptions = {
      }),
     EffectsModule.forRoot([
       // TODO ADD EFFECTS HERE
+      AuthEffects,
+      HeaderEffects,
+      ExploreEffects,
+      FavoritesEffects,
     ]),
     StoreRouterConnectingModule.forRoot(),
     AppRoutingModule,
