@@ -5,6 +5,7 @@ import * as fromHeader from './header/store/header.reducer';
 import * as fromLoader from './shared/loader/store/loader.reducer';
 import * as fromHome from './home/store/home.reducer';
 import * as fromExplore from './explore/store/explore.reducer';
+import * as fromFavorites from './favorites/store/favorites.reducer';
 
 export const appReducer: ActionReducerMap<AppState> = {
   auth: fromAuth.authReducer,
@@ -12,4 +13,5 @@ export const appReducer: ActionReducerMap<AppState> = {
   loader: fromLoader.loaderReducer,
   home: fromHome.homeReducer,
   explore: fromExplore.exploreReducer,
+  favorites: fromFavorites.favoritesReducer,
 };
