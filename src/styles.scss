@@ -46,11 +46,11 @@ body {
 
 // CHECK BUTTONS
 .mat-checkbox-checked.mat-accent .mat-checkbox-background {
-  background-color: #cd3e3e !important;
+  background-color: #c2e82e !important;
 }
 
 .mat-checkbox-checked:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element {
-  background: #cd3e3e !important;
+  background: #c2e82e !important;
 }
 
 .mat-checkbox-layout .mat-checkbox-label {
@@ -58,12 +58,12 @@ body {
 }
 
 .mat-primary .mat-pseudo-checkbox-checked {
-  background: #cd3e3e !important;
+  background: #c2e82e !important;
 }
 
 // MENU ITEMS
 .mat-menu-item:hover:not([disabled]) {
-  background: #cd3e3e !important;
+  background: #c2e82e !important;
   color: white !important;
   // font-weight: 600 !important;
 }
@@ -93,34 +93,34 @@ app-login {
 
 // RADIO BUTTONS
 .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
-  border-color: #cd3e3e;
+  border-color: #c2e82e;
 }
 
 .mat-radio-button.mat-accent .mat-radio-inner-circle {
-  background-color: #cd3e3e;
+  background-color: #c2e82e;
 }
 
 .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple {
-  background-color: #cd3e3e;
+  background-color: #c2e82e;
 }
 
 .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
-  background-color: #cd3e3e;
+  background-color: #c2e82e;
 }
 
 .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple) {
-  background-color: #cd3e3e;
+  background-color: #c2e82e;
 }
 
 // PROGRESS SPINNER
 .mat-progress-spinner circle,
 .mat-spinner circle {
-  stroke: #cd3e3e;
+  stroke: #c2e82e;
 }
 
 // PROGRESS BAR
 .mat-progress-bar-fill:after {
-  background-color: #cd3e3e !important;
+  background-color: #c2e82e !important;
 }
 
 .mat-progress-bar-buffer {
@@ -129,15 +129,15 @@ app-login {
 
 // BUTTONS & ICONS
 .mat-flat-button.mat-accent {
-  background-color: #cd3e3e;
+  background-color: #c2e82e;
 }
 
 .mat-icon-button.mat-accent {
-  color: #cd3e3e;
+  color: #c2e82e;
 }
 
 .mat-icon.mat-accent {
-  color: #cd3e3e;
+  color: #c2e82e;
 }
 
 // SIDENAV LIST
@@ -149,7 +149,7 @@ app-login {
 .mat-action-list .mat-list-item:hover,
 .mat-action-list .mat-list-item:focus,
 .mat-action-list .mat-list-item:active {
-  background-color: #cd3e3e !important;
+  background-color: #c2e82e !important;
   border-radius: 4px;
 }
 
@@ -208,13 +208,13 @@ mat-sidenav {
 
 // Datepicker
 .mat-datepicker-toggle-active {
-  color: #cd3e3e;
+  color: #c2e82e;
 }
 
 // TABS
 .mat-tab-group.mat-primary .mat-ink-bar,
 .mat-tab-nav-bar.mat-primary .mat-ink-bar {
-  background-color: #cd3e3e;
+  background-color: #c2e82e;
 }
 
 // SnackBar styles
@@ -242,12 +242,12 @@ mat-sidenav {
   color: white;
 }
 
-.red-nbu-color {
-  color: #cd3e3e;
+.green-nbu-color {
+  color: #c2e82e;
 }
 
-.dark-red-nbu-color {
-  color: #b90000;
+.dark-green-nbu-color {
+  color: #d3ff21;
 }
 
 .disabled-grey-color {
@@ -355,12 +355,12 @@ button {
   }
 }
 
-.red-button {
+.green-button {
   background-color: #62a420;
 }
 
-.red-nbu-button {
-  background-color: #cd3e3e;
+.green-nbu-button {
+  background-color: #c2e82e;
 }
 
 .grey-button {

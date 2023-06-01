@@ -31,8 +31,8 @@ export class AppComponent extends BaseComponent {
   private homeURL: boolean = false;
   private loginURL: boolean = false;
   private registerURL: boolean = false;
-  private profileURL: boolean = false;
-  private visitsURL: boolean = false;
+  private exploreURL: boolean = false;
+  private favoritesURL: boolean = false;
 
   private role: string | null;
 
@@ -83,15 +83,15 @@ export class AppComponent extends BaseComponent {
           clicked: this.loginURL
         },
         {
-          icon: "account_circle",
+          icon: "soup_kitchen",
           text: "Register",
           clicked: this.registerURL
         },
       ];
     } else if (this.role == "PATIENT") {
       this.homeURL = true;
-      this.profileURL = false;
-      this.visitsURL = false;
+      this.exploreURL = false;
+      this.favoritesURL = false;
 
       this.sideNavItems = [
         {
@@ -100,14 +100,14 @@ export class AppComponent extends BaseComponent {
           clicked: this.homeURL
         },
         {
-          icon: "account_circle",
-          text: "Profile",
-          clicked: this.profileURL,
+          icon: "soup_kitchen",
+          text: "Explore",
+          clicked: this.exploreURL,
         },
         {
-          icon: "pending_actions",
-          text: "Visits",
-          clicked: this.visitsURL,
+          icon: "favorite",
+          text: "Favorites",
+          clicked: this.favoritesURL,
         }
       ];
     }
@@ -141,7 +141,7 @@ export class AppComponent extends BaseComponent {
           clicked: this.loginURL
         },
         {
-          icon: "account_circle",
+          icon: "soup_kitchen",
           text: "Register",
           clicked: this.registerURL
         },
@@ -149,16 +149,16 @@ export class AppComponent extends BaseComponent {
     } else if (this.role == "PATIENT") {
       if (this.location.path() == "/home") {
         this.homeURL = true;
-        this.profileURL = false;
-        this.visitsURL = false;
-      } else if (this.location.path() == "/profile") {
-        this.profileURL = true;
+        this.exploreURL = false;
+        this.favoritesURL = false;
+      } else if (this.location.path() == "/explore") {
+        this.exploreURL = true;
         this.homeURL = false;
-        this.visitsURL = false;
-      } else if (this.location.path() == "/visits") {
-        this.visitsURL = true;
+        this.favoritesURL = false;
+      } else if (this.location.path() == "/favorites") {
+        this.favoritesURL = true;
         this.homeURL = false;
-        this.profileURL = false;
+        this.exploreURL = false;
       }
 
       this.sideNavItems = [
@@ -168,14 +168,14 @@ export class AppComponent extends BaseComponent {
           clicked: this.homeURL
         },
         {
-          icon: "account_circle",
-          text: "Profile",
-          clicked: this.profileURL,
+          icon: "soup_kitchen",
+          text: "Explore",
+          clicked: this.exploreURL,
         },
         {
-          icon: "pending_actions",
-          text: "Visits",
-          clicked: this.visitsURL,
+          icon: "favorite",
+          text: "Favorites",
+          clicked: this.favoritesURL,
         }
       ];
     }
@@ -247,27 +247,27 @@ export class AppComponent extends BaseComponent {
             }
           }
           break;
-        case "Profile":
-          if (this.location.path() == "/profile") {
+        case "Explore":
+          if (this.location.path() == "/explore") {
             window.location.reload();
             if (this.sidenav.mode == 'over') {
               this.closeSidenav();
             }
           } else {
-            this.router.navigate(['profile']);
+            this.router.navigate(['explore']);
             if (this.sidenav.mode == 'over') {
               this.closeSidenav();
             }
           }
           break;
-        case "Visits":
-          if (this.location.path() == "/visits") {
+        case "Favorites":
+          if (this.location.path() == "/favorites") {
             window.location.reload();
             if (this.sidenav.mode == 'over') {
               this.closeSidenav();
             }
           } else {
-            this.router.navigate(['visits']);
+            this.router.navigate(['favorites']);
             if (this.sidenav.mode == 'over') {
               this.closeSidenav();
             }
