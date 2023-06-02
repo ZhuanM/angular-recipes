@@ -4,7 +4,7 @@ import { State } from "./explore.reducer";
 
 const exploreSelector = createFeatureSelector<AppState, State>('explore');
 
-// export const exploreName = createSelector(
-//   exploreSelector,
-//   (state: State) => state.schoolName
-// );
+export const randomRecipes = createSelector(
+  exploreSelector,
+  (state: State) => state.randomRecipes
+);

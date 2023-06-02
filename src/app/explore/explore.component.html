@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="row justify-content-sm-start justify-content-center">
+    <div class="card-container col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3" *ngFor="let recipe of recipes">
+      <app-recipe-card [recipe]="recipe" (toggleFavorite)="onToggleFavorite($event)" (click)="openRecipe(recipe)"></app-recipe-card>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 text-center">
+      <button mat-raised-button class="red-nbu-button white-color" (click)="loadMore()">Load more</button>
+    </div>
+  </div>
+</div>

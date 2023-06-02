@@ -66,7 +66,7 @@ export class AppComponent extends BaseComponent {
 
   // THIS FUNCTION EXISTS BECAUSE this.location.path() doesn't return correct url when logging in and doesn't update accordingly the header and sidenav
   public toHome() {
-    if (this.role == null) {
+    if (false) {
       this.homeURL = true;
       this.loginURL = false;
       this.registerURL = false;
@@ -88,7 +88,7 @@ export class AppComponent extends BaseComponent {
           clicked: this.registerURL
         },
       ];
-    } else if (this.role == "PATIENT") {
+    } else if (true) {
       this.homeURL = true;
       this.exploreURL = false;
       this.favoritesURL = false;
@@ -114,7 +114,7 @@ export class AppComponent extends BaseComponent {
   }
 
   public updateSidenavItems() {
-    if (this.role == null) {
+    if (false) {
       if (this.location.path() == "/home") {
         this.homeURL = true;
         this.loginURL = false;
@@ -146,7 +146,7 @@ export class AppComponent extends BaseComponent {
           clicked: this.registerURL
         },
       ];
-    } else if (this.role == "PATIENT") {
+    } else if (true) {
       if (this.location.path() == "/home") {
         this.homeURL = true;
         this.exploreURL = false;
@@ -190,7 +190,7 @@ export class AppComponent extends BaseComponent {
 
     this.sideNavItems[index].clicked = true;
 
-    if (this.role == null) {
+    if (false) {
       switch (this.sideNavItems[index].text) {
         case "Home":
           if (this.location.path() == "/home") {
@@ -232,7 +232,7 @@ export class AppComponent extends BaseComponent {
           }
           break;
       }
-    } else if (this.role == "PATIENT") {
+    } else if (true) {
       switch (this.sideNavItems[index].text) {
         case "Home":
           if (this.location.path() == "/home") {

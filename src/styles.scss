@@ -13,7 +13,7 @@ body {
 
 // BUILT-IN FONTS
 .font-montserrat {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Montserrat", sans-serif !important;
 }
 
 /* MATERIAL OVERRIDES */
@@ -361,6 +361,10 @@ button {
 
 .green-nbu-button {
   background-color: #c2e82e;
+}
+
+.red-nbu-button {
+  background-color: #d15555;
 }
 
 .grey-button {

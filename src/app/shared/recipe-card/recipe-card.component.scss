@@ -1,0 +1,70 @@
+.recipe-card {
+  position: relative;
+  min-height: 300px;
+  max-width: 240px;
+  margin-bottom: 30px;
+
+  .image-container {
+    width: 100%;
+  }
+
+  .card-image {
+    width: 100%;
+    height: auto; /* maintain aspect ratio */
+    display: block; /* remove the default line-height and vertical alignment */
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+  }
+
+  .favorite-icon {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 1;
+    color: #d15555;
+    cursor: pointer;
+
+    &.favorited {
+      color: #d15555;
+    }
+  }
+
+  .card-title {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 15px;
+    color: #676767;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .rating {
+    display: flex;
+    justify-content: flex-start;
+
+    mat-icon {
+      color: #ffd740; 
+    }
+  }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap; 
+    overflow: hidden;
+
+    mat-chip {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}
+
+.mat-card {
+  padding: 0;
+}
+
+.mat-card-content {
+  padding: 16px;
+}

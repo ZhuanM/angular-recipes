@@ -1,15 +1,12 @@
 import { createAction, props } from "@ngrx/store";
 
-// export const getSchool = createAction(
-//   '[Explore Component] Get School',
-//   props<{
-//       id: any
-//   }>()
-// );
+export const getRandomRecipes = createAction(
+  '[Explore Component] Get Random Recipes'
+);
 
-// export const getSchoolSuccess = createAction(
-//   '[Explore Component] Get School Success',
-//   props<{
-//       name: string
-//   }>()
-// );
+export const getRandomRecipesSuccess = createAction(
+  '[Explore Component] Get Random Recipes Success',
+  props<{
+    randomRecipes: any
+  }>()
+);

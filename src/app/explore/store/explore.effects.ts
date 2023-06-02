@@ -11,15 +11,14 @@ export class ExploreEffects {
     private exploreService: ExploreService
   ) {}
 
-  // getSchool$ = createEffect(() =>
+  // getRandomRecipes$ = createEffect(() =>
   //   this.actions$.pipe(
-  //     ofType(ExploreActions.getSchool),
+  //     ofType(ExploreActions.getRandomRecipes),
   //     switchMap((action) => {
-  //       return this.schoolService.getSchool(action.id).pipe(
+  //       return this.exploreService.getRandomRecipes().pipe(
   //         map((response) => {
-  //           return ExploreActions.getSchoolSuccess({
-  //             name: response.name,
-  //             schoolAddress: response.address,
+  //           return ExploreActions.getRandomRecipesSuccess({
+  //             randomRecipes: response,
   //           });
   //         })
   //       );
