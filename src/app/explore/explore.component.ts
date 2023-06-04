@@ -7,6 +7,7 @@ import { AppState } from '../shared/models/app-state.interface';
 import * as ExploreSelectors from '../explore/store/explore.selectors';
 import * as ExploreActions from '../explore/store/explore.actions';
 import { mockData } from '../shared/api/api-response-example';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-explore',
@@ -20,7 +21,7 @@ export class ExploreComponent extends BaseComponent {
   public page = 0;
   public isLoadingData = false; // new flag to indicate if we are currently loading data
 
-  constructor(private store: Store<AppState>) { 
+  constructor(private store: Store<AppState>, private router: Router) { 
     super();
   }
 
@@ -51,8 +52,7 @@ export class ExploreComponent extends BaseComponent {
   }
 
   public openRecipe(recipe: any) {
-    // TODO redirect to recipe page
-    console.log("test");
+    this.router.navigate(['/recipe', recipe.id]);
   }
 
   public onToggleFavorite(recipe: any) {

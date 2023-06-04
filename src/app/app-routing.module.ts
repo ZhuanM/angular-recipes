@@ -8,6 +8,7 @@ import { AutoLoginGuard } from './auth/auto-login.guard';
 import { AuthGuard } from './auth/auth.guard';
 import { ExploreComponent } from './explore/explore.component';
 import { FavoritesComponent } from './favorites/favorites.component';
+import { RecipePageComponent } from './recipe-page/recipe-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -17,6 +18,8 @@ const routes: Routes = [
   // TODO RETURN , canActivate: [ AuthGuard ]
   { path: 'explore', component: ExploreComponent },
   { path: 'favorites', component: FavoritesComponent, canActivate: [ AuthGuard ] },
+  // TODO RETURN , canActivate: [ AuthGuard ]
+  { path: 'recipe/:id', component: RecipePageComponent },
   { path: '**', component: NotFoundComponent },
 ];
 
