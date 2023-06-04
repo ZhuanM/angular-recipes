@@ -37,4 +37,8 @@ export class RecipePageComponent extends BaseComponent {
       this.recipe.tags = tags;
     }
   }
+
+  public onFavorite() {
+    // TODO ADD FAVORITE/UNFAVORITE FUNCTIONALITY API CALLS
+  }
 }

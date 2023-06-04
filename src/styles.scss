@@ -16,6 +16,10 @@ body {
   font-family: "Montserrat", sans-serif !important;
 }
 
+.font-quicksand {
+  font-family: "Quicksand", sans-serif !important;
+}
+
 /* MATERIAL OVERRIDES */
 .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
   color: #9e9e9e !important;
@@ -235,6 +239,12 @@ mat-sidenav {
   .mat-button-wrapper {
     color: #4c4c4c !important;
   }
+}
+
+// Chips
+.mat-chip.mat-standard-chip {
+  background-color: #d15555;
+  color: white;
 }
 
 /* COLORS */
