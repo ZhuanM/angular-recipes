@@ -28,6 +28,14 @@
                 <mat-error>{{getRegisterUsernameErrorMessage()}}</mat-error>
               </mat-form-field>
             </div>
+
+            <div class="mb-3">
+              <mat-form-field class="w-100">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" required>
+                <mat-error>{{getRegisterEmailErrorMessage()}}</mat-error>
+              </mat-form-field>
+            </div>
   
             <div formGroupName="passwords">
               <div class="mb-3">

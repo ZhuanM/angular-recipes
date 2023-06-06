@@ -75,37 +75,39 @@ export class AuthEffects {
     )
   );
 
-  // authRegisterUser$ = createEffect(() =>
-  // this.actions$.pipe(
-  //   ofType(AuthActions.registerUser),
-  //   switchMap(action => {
-  //     const username = action.username;
-  //     const password = action.password;
+  authRegister$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(AuthActions.register),
+    switchMap(action => {
+      const username = action.username;
+      const password = action.password;
       
-  //     return this.authService.registerUser(
-  //       action.name,
-  //       action.username,
-  //       action.password)
-  //       .pipe(
-  //         map(authData => {
-  //           return AuthActions.login({username: username, password: password})
-  //         }),
-  //         catchError((errorRes: HttpErrorResponse) => {
-  //           if (errorRes?.error?.errorMessage == 'UniqueCitizenNumber exists!') {
-  //             this.appService.openSnackBar('Unique Citizen Number already exists!', MessageType.Error);
-  //           }
-  //           if (errorRes?.error?.errorMessage == 'Username exists!') {
-  //             this.appService.openSnackBar('Username already exists!', MessageType.Error);
-  //           }
+      return this.authService.register(
+        action.name,
+        action.username,
+        action.email,
+        action.password)
+        .pipe(
+          map(authData => {
+            return AuthActions.login({username: username, password: password})
+          }),
+          catchError((errorRes: HttpErrorResponse) => {
+            // TODO HANDLE REGISTER ERRORS
+            // if (errorRes?.error?.errorMessage == 'UniqueCitizenNumber exists!') {
+            //   this.appService.openSnackBar('Unique Citizen Number already exists!', MessageType.Error);
+            // }
+            // if (errorRes?.error?.errorMessage == 'Username exists!') {
+            //   this.appService.openSnackBar('Username already exists!', MessageType.Error);
+            // }
 
-  //           return of(AuthActions.authFail(
-  //             { errorMessage: 'Invalid email and/or password' }
-  //           ));
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
+            return of(AuthActions.authFail(
+              { errorMessage: 'Invalid email and/or password' }
+            ));
+          })
+        );
+      })
+    )
+  );
 
   constructor(
     private actions$: Actions,

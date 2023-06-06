@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { BaseComponent } from '../shared/base.component';
 import { Store, select } from '@ngrx/store';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
@@ -15,8 +15,6 @@ import { AppState } from '../shared/models/app-state.interface';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent extends BaseComponent {
-  @Output() login = new EventEmitter<boolean>();
-
   readonly authError$: Observable<string> = this.store.pipe(select(AuthSelectors.authError), takeUntil(this.destroyed$));
 
   public hideLoginPassword: boolean = true;
@@ -41,8 +39,6 @@ export class LoginComponent extends BaseComponent {
           password: this.loginForm.get('password').value
         }
       ));
-      
-      this.login.emit(true);
     }
   }
   

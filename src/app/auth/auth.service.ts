@@ -23,18 +23,20 @@ export class AuthService {
     )
   }
 
-  registerUser(
+  register(
     name: string,
     username: string,
+    email: string,
     password: string,
     ) {
-    // return this.http.post<any>(
-    //   apiUrls.userUrl,
-    //   {
-    //     "name": name,
-    //     "username": username,
-    //     "password": password,
-    //   }
-    // )
+    return this.http.post<any>(
+      apiUrls.registerUrl,
+      {
+        "name": name,
+        "username": username,
+        "email": email,
+        "password": password,
+      }
+    )
   }
 }

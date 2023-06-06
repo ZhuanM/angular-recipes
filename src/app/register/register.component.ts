@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { BaseComponent } from '../shared/base.component';
 import { Store } from '@ngrx/store';
 import { AbstractControl, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
@@ -18,6 +18,7 @@ export class RegisterComponent extends BaseComponent {
   public registerForm = new UntypedFormGroup({
     name: new UntypedFormControl('', [Validators.required]),
     username: new UntypedFormControl('', [Validators.required]),
+    email: new UntypedFormControl('', [Validators.required, Validators.email]),
     passwords: new UntypedFormGroup({
       password: new UntypedFormControl('', [Validators.required]),
       repeatPassword: new UntypedFormControl('', [Validators.required]),
@@ -33,10 +34,11 @@ export class RegisterComponent extends BaseComponent {
   public onSubmit() {
     if (this.registerForm.valid) {
       this.store.dispatch(appLoading({ loading: true }));
-      this.store.dispatch(AuthActions.registerUser(
+      this.store.dispatch(AuthActions.register(
         {
           name: this.registerForm.get('name').value,
           username: this.registerForm.get('username').value,
+          email: this.registerForm.get('email').value,
           password: this.registerForm.get('passwords')?.get('password').value,
         }
       ));
@@ -68,13 +70,13 @@ export class RegisterComponent extends BaseComponent {
     return username.hasError('username') ? 'Please enter a valid username' : '';
   }
 
-  public getRegisterUniqueNumberErrorMessage() {
-    let uniqueUserNumber = this.registerForm.get('uniqueUserNumber');
-    if (uniqueUserNumber.hasError('uniqueUserNumber')) {
-      return 'Please enter your unique number';
+  public getRegisterEmailErrorMessage() {
+    let email = this.registerForm.get('email');
+    if (email.hasError('required')) {
+      return 'Please enter your email';
     }
 
-    return uniqueUserNumber.hasError('uniqueUserNumber') ? 'Please enter a valid unique number' : '';
+    return email.hasError('email') ? 'Please enter a valid email' : '';
   }
 
   public getPasswordErrorMessage() {

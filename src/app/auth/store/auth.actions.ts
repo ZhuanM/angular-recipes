@@ -8,11 +8,12 @@ export const login = createAction(
   }>()
 );
 
-export const registerUser = createAction(
-  '[Auth Component] Register User',
+export const register = createAction(
+  '[Auth Component] Register',
   props<{
     name: string,
     username: string,
+    email: string,
     password: string,
   }>()
 );
