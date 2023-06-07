@@ -1,25 +1,25 @@
 import { createReducer, on, Action } from '@ngrx/store';
-// import * as RecipePageActions from './recipe-page.actions';
+import { Recipe } from 'src/app/shared/models/recipe.interface';
+import * as RecipePageActions from './recipe-page.actions';
 
 export interface State {
-
+  recipe: Recipe
 }
 
 export const initialState: State = {
-
+  recipe: null
 }
 
 const _recipePageReducer = createReducer(
   initialState,
 
-  // on(
-  //   RecipePageActions.getSchoolSuccess,
-  //   (state, action) => ({
-  //     ...state,
-  //     schoolName: action.name,
-  //     schoolAddress: action.schoolAddress
-  //   })
-  // ),
+  on(
+    RecipePageActions.getRecipeSuccess,
+    (state, action) => ({
+      ...state,
+      recipe: action.recipe,
+    })
+  ),
 );
 
 export function recipePageReducer(state: State, action: Action) {

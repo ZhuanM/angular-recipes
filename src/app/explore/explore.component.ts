@@ -25,19 +25,26 @@ export class ExploreComponent extends BaseComponent {
     super();
 
     this.randomRecipes$.pipe(takeUntil(this.destroyed$)).subscribe(randomRecipes => {
-      const recipesWithTags = randomRecipes.map(recipe => {
-        const tags: Array<string> = [];
-        
-        if (recipe.vegetarian) tags.push('Vegetarian');
-        if (recipe.vegan) tags.push('Vegan');
-        if (recipe.glutenFree) tags.push('Gluten Free');
-        if (recipe.dairyFree) tags.push('Dairy Free');
-
-        return { ...recipe, tags }; // return the recipe with added tags property
-      });
-  
-      this.recipes = [...this.recipes, ...recipesWithTags];
-      this.isLoadingData = false;
+      if (randomRecipes) {
+        const recipesWithTags = randomRecipes.map(recipe => {
+          if (!recipe.hasOwnProperty('tags')) {
+            const tags: Array<string> = [];
+    
+            if (recipe.vegetarian) tags.push('Vegetarian');
+            if (recipe.vegan) tags.push('Vegan');
+            if (recipe.glutenFree) tags.push('Gluten Free');
+            if (recipe.dairyFree) tags.push('Dairy Free');
+    
+            return { ...recipe, tags }; // return the recipe with added tags property
+          }
+    
+          // If tags property exists, return the recipe as it is
+          return recipe;
+        });
+    
+        this.recipes = [...this.recipes, ...recipesWithTags];
+        this.isLoadingData = false;
+      }
     });
   }
 

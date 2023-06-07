@@ -17,8 +17,14 @@ export class ExploreEffects {
       switchMap((action) => {
         return this.exploreService.getRandomRecipes().pipe(
           map((response) => {
+            // Map each recipe to include 'isFavorite' property
+            const recipes = response.recipes.map((recipe: any) => ({
+              ...recipe,
+              isFavorite: false,
+            }));
+
             return ExploreActions.getRandomRecipesSuccess({
-              randomRecipes: response.recipes,
+              randomRecipes: recipes
             });
           })
         );

@@ -4,41 +4,57 @@ import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '../shared/base.component';
 import { AppState } from '../shared/models/app-state.interface';
-import { mockData } from '../shared/api/api-response-example';
 import { ActivatedRoute } from '@angular/router';
+import { Recipe } from '../shared/models/recipe.interface';
+import { appLoading } from '../shared/loader/store/loader.actions';
+import * as RecipePageSelectors from '../recipe-page/store/recipe-page.selectors';
+import * as RecipePageActions from '../recipe-page/store/recipe-page.actions';
 
 @Component({
   selector: 'app-recipe-page',
   templateUrl: './recipe-page.component.html',
-  styleUrls: ['./recipe-page.component.scss']
+  styleUrls: ['./recipe-page.component.scss'],
 })
 export class RecipePageComponent extends BaseComponent {
-  public recipe: any;
+  readonly recipe$: Observable<Recipe> = this.store.pipe(
+    select(RecipePageSelectors.recipe),
+    takeUntil(this.destroyed$)
+  );
 
-  // TODO REMOVE (FOR TESTING PURPOSES ONLY)
-  public allRecipes: any;
-  
-  constructor(private store: Store<AppState>, private route: ActivatedRoute) { 
+  public recipe: Recipe;
+
+  constructor(private store: Store<AppState>, private route: ActivatedRoute) {
     super();
+
+    this.recipe$.pipe(takeUntil(this.destroyed$)).subscribe((recipe) => {
+      if (recipe) {
+        this.recipe = recipe;
+
+        if (!this.recipe.hasOwnProperty('tags')) {
+          this.recipe.tags = [];
+
+          if (this.recipe.vegetarian) this.recipe.tags.push('Vegetarian');
+          if (this.recipe.vegan) this.recipe.tags.push('Vegan');
+          if (this.recipe.glutenFree) this.recipe.tags.push('Gluten Free');
+          if (this.recipe.dairyFree) this.recipe.tags.push('Dairy Free');
+        }
+      }
+    });
   }
 
   ngOnInit() {
-    // TODO ADD API CALL FOR GETTING RECIPE BY ID
     const recipeId = this.route.snapshot.paramMap.get('id');
-    this.allRecipes = mockData.results;
-    this.recipe = this.allRecipes.find(recipe => recipe.id == recipeId);
-
-    if (this.recipe) {
-      const tags = [];
-      if (this.recipe.vegetarian) tags.push('Vegetarian');
-      if (this.recipe.vegan) tags.push('Vegan');
-      if (this.recipe.glutenFree) tags.push('Gluten Free');
-      if (this.recipe.dairyFree) tags.push('Dairy Free');
-      this.recipe.tags = tags;
-    }
+    this.store.dispatch(appLoading({ loading: true }));
+    // TODO ADD API CALL FOR GETTING RECIPE BY ID
   }
 
   public onFavorite() {
-    // TODO ADD FAVORITE/UNFAVORITE FUNCTIONALITY API CALLS
+    this.recipe.isFavorite = !this.recipe.isFavorite;
+
+    if (this.recipe.isFavorite) {
+      this.store.dispatch(RecipePageActions.addToFavorites({ recipe: this.recipe }));
+    } else {
+      this.store.dispatch(RecipePageActions.removeFromFavorites({ id: this.recipe.id }));
+    }
   }
 }

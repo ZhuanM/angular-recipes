@@ -4,7 +4,7 @@ import { State } from "./recipe-page.reducer";
 
 const recipePageSelector = createFeatureSelector<AppState, State>('recipePage');
 
-// export const recipePageName = createSelector(
-//   recipePageSelector,
-//   (state: State) => state.schoolName
-// );
+export const recipe = createSelector(
+  recipePageSelector,
+  (state: State) => state.recipe
+);

@@ -8,22 +8,47 @@ import * as RecipePageActions from './recipe-page.actions';
 export class RecipePageEffects {
   constructor(
     private actions$: Actions,
-    private exploreService: RecipePageService
+    private recipePageService: RecipePageService
   ) {}
 
-  // getSchool$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(RecipePageActions.getSchool),
-  //     switchMap((action) => {
-  //       return this.schoolService.getSchool(action.id).pipe(
-  //         map((response) => {
-  //           return RecipePageActions.getSchoolSuccess({
-  //             name: response.name,
-  //             schoolAddress: response.address,
-  //           });
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
+  getRecipe$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(RecipePageActions.getRecipe),
+      switchMap((action) => {
+        return this.recipePageService.getRecipe(action.id).pipe(
+          map((response) => {
+            return RecipePageActions.getRecipeSuccess({
+              recipe: response.recipe,
+            });
+          })
+        );
+      })
+    )
+  );
+
+  addToFavorites$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(RecipePageActions.addToFavorites),
+      switchMap((action) => {
+        return this.recipePageService.addToFavorites(action.recipe).pipe(
+          map((response) => {
+            return RecipePageActions.addToFavoritesSuccess();
+          })
+        );
+      })
+    )
+  );
+
+  removeFromFavorites$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(RecipePageActions.removeFromFavorites),
+      switchMap((action) => {
+        return this.recipePageService.removeFromFavorites(action.id).pipe(
+          map((response) => {
+            return RecipePageActions.removeFromFavoritesSuccess();
+          })
+        );
+      })
+    )
+  );
 }

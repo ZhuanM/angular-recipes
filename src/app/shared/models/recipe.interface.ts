@@ -36,6 +36,7 @@ export interface Recipe {
   originalId: string | number
   spoonacularSourceUrl: string
   tags?: Array<string>
+  isFavorite?: boolean
 }
 
 export interface ExtendedIngredient {
