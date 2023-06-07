@@ -96,7 +96,6 @@ const appearance: MatFormFieldDefaultOptions = {
       maxAge: 25, // Retains last 25 states
      }),
     EffectsModule.forRoot([
-      // TODO ADD EFFECTS HERE
       AuthEffects,
       HeaderEffects,
       ExploreEffects,

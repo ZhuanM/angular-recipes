@@ -7,31 +7,26 @@ import { Recipe } from '../shared/models/recipe.interface';
 
 @Injectable({ providedIn: 'root' })
 export class ExploreService {
-  constructor(
-    private http: HttpClient,
-  ) {}
+  constructor(private http: HttpClient) {}
 
   getRandomRecipes() {
-    return this.http.get<any>(
-      apiUrls.getRandomRecipesUrl
-    )
-
-    // TODO Remove (used for testing purposes)
-    // return mockData;
+    return this.http.get<any>(apiUrls.getRandomRecipesUrl, {
+      params: {
+        number: '8',
+        apiKey: 'a31f8125c4294d1f8b60075c8d52e584'
+      }
+    });
   }
 
   addToFavorites(recipe: Recipe) {
-    return this.http.post<any>(
-      apiUrls.favoriteRecipesUrl,
-      {
-        "recipe": recipe,
-      }
-    )
+    return this.http.post<any>(apiUrls.favoriteRecipesUrl, {
+      recipe: recipe,
+    });
   }
 
   removeFromFavorites(id: number) {
     return this.http.delete<any>(
       apiUrls.favoriteRecipesUrl + '/' + id.toString()
-    )
+    );
   }
 }

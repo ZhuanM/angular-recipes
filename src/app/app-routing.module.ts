@@ -15,11 +15,9 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent, canActivate: [ AutoLoginGuard ] },
   { path: 'register', component: RegisterComponent, canActivate: [ AutoLoginGuard ] },
-  // TODO RETURN , canActivate: [ AuthGuard ]
-  { path: 'explore', component: ExploreComponent },
+  { path: 'explore', component: ExploreComponent, canActivate: [ AuthGuard ] },
   { path: 'favorites', component: FavoritesComponent, canActivate: [ AuthGuard ] },
-  // TODO RETURN , canActivate: [ AuthGuard ]
-  { path: 'recipe/:id', component: RecipePageComponent },
+  { path: 'recipe/:id', component: RecipePageComponent, canActivate: [ AuthGuard ] },
   { path: '**', component: NotFoundComponent },
 ];
 
