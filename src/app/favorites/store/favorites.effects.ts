@@ -11,19 +11,44 @@ export class FavoritesEffects {
     private favoritesService: FavoritesService
   ) {}
 
-  // getSchool$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(ExploreActions.getSchool),
-  //     switchMap((action) => {
-  //       return this.schoolService.getSchool(action.id).pipe(
-  //         map((response) => {
-  //           return ExploreActions.getSchoolSuccess({
-  //             name: response.name,
-  //             schoolAddress: response.address,
-  //           });
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
+  getRandomRecipes$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(FavoritesActions.getFavoritedRecipes),
+      switchMap((action) => {
+        return this.favoritesService.getFavoritedRecipes().pipe(
+          map((response) => {
+            return FavoritesActions.getFavoritedRecipesSuccess({
+              favoritedRecipes: response.recipes,
+            });
+          })
+        );
+      })
+    )
+  );
+
+  addToFavorites$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(FavoritesActions.addToFavorites),
+      switchMap((action) => {
+        return this.favoritesService.addToFavorites(action.recipe).pipe(
+          map((response) => {
+            return FavoritesActions.addToFavoritesSuccess();
+          })
+        );
+      })
+    )
+  );
+
+  removeFromFavorites$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(FavoritesActions.removeFromFavorites),
+      switchMap((action) => {
+        return this.favoritesService.removeFromFavorites(action.id).pipe(
+          map((response) => {
+            return FavoritesActions.removeFromFavoritesSuccess();
+          })
+        );
+      })
+    )
+  );
 }

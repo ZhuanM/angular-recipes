@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row justify-content-sm-start justify-content-center">
-    <div class="card-container col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3" *ngFor="let recipe of recipes">
+    <div *ngFor="let recipe of recipes" class="card-container col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3">
       <app-recipe-card [recipe]="recipe" (toggleFavorite)="onToggleFavorite($event)" (click)="openRecipe(recipe)"></app-recipe-card>
     </div>
   </div>

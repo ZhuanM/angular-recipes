@@ -4,6 +4,11 @@ import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '../shared/base.component';
 import { AppState } from '../shared/models/app-state.interface';
+import { appLoading } from '../shared/loader/store/loader.actions';
+import { Recipe } from '../shared/models/recipe.interface';
+import { Router } from '@angular/router';
+import * as FavoritesSelectors from '../favorites/store/favorites.selectors';
+import * as FavoritesActions from '../favorites/store/favorites.actions';
 
 @Component({
   selector: 'app-favorites',
@@ -11,7 +16,48 @@ import { AppState } from '../shared/models/app-state.interface';
   styleUrls: ['./favorites.component.scss']
 })
 export class FavoritesComponent extends BaseComponent {
-  constructor(private store: Store<AppState>) { 
+  readonly favoritedRecipes$: Observable<Array<Recipe>> = this.store.pipe(select(FavoritesSelectors.favoritedRecipes), takeUntil(this.destroyed$));
+
+  public recipes: Array<Recipe> = [];
+
+  constructor(private store: Store<AppState>, private router: Router) { 
     super();
+
+    this.favoritedRecipes$.pipe(takeUntil(this.destroyed$)).subscribe(favoritedRecipes => {
+      const recipesWithTags = favoritedRecipes.map(recipe => {
+        const tags: Array<string> = [];
+
+        if (recipe.vegetarian) tags.push('Vegetarian');
+        if (recipe.vegan) tags.push('Vegan');
+        if (recipe.glutenFree) tags.push('Gluten Free');
+        if (recipe.dairyFree) tags.push('Dairy Free');
+
+        return { ...recipe, tags }; // return the recipe with added tags property
+      });
+  
+      this.recipes = [...this.recipes, ...recipesWithTags];
+    });
+  }
+
+  ngOnInit() {
+    this.loadMore();
+  }
+
+  private loadMore() {
+    this.store.dispatch(appLoading({ loading: true }));
+    this.store.dispatch(FavoritesActions.getFavoritedRecipes());
+  }
+
+  public openRecipe(recipe: Recipe) {
+    this.router.navigate(['/recipe', recipe.id]);
+  }
+
+  public onToggleFavorite({recipe, isFavorited}: {recipe: Recipe, isFavorited: boolean}) {
+    this.store.dispatch(appLoading({ loading: true }));
+    if (isFavorited) {
+      this.store.dispatch(FavoritesActions.addToFavorites({ recipe: recipe }));
+    } else {
+      this.store.dispatch(FavoritesActions.removeFromFavorites({ id: recipe.id }));
+    }
   }
 }

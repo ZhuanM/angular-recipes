@@ -23,7 +23,7 @@ export class AppComponent extends BaseComponent {
   @ViewChild(MatSidenav) sidenav: MatSidenav;
 
   readonly sidenavOpened$: Observable<boolean> = this.store.pipe(select(HeaderSelectors.sidenavOpened), takeUntil(this.destroyed$));
-  // readonly user$: Observable<User> = this.store.pipe(select(AuthSelectors.user), takeUntil(this.destroyed$));
+  readonly user$: Observable<User> = this.store.pipe(select(AuthSelectors.user), takeUntil(this.destroyed$));
 
   public sideNavItems: Array<any>;
 
@@ -34,7 +34,7 @@ export class AppComponent extends BaseComponent {
   private exploreURL: boolean = false;
   private favoritesURL: boolean = false;
 
-  private role: string | null;
+  private name: string;
 
   @HostListener('window:popstate', ['$event'])
   onPopState() {
@@ -52,21 +52,21 @@ export class AppComponent extends BaseComponent {
 
     this.updateSidenavItems();
 
-    // this.user$.pipe(takeUntil(this.destroyed$)).subscribe(user => {
-    //   this.role = localStorage.getItem('role');
-    //   this.updateSidenavItems();
-    // });
+    this.user$.pipe(takeUntil(this.destroyed$)).subscribe(user => {
+      this.name = localStorage.getItem('name');
+      this.updateSidenavItems();
+    });
 
     this.subscription.add(this.actionsSubject$.pipe(filter((action) => action.type === '[Auth Component] Logout Success'))
     .subscribe(() => {
-      this.role = localStorage.getItem('role');
+      this.name = localStorage.getItem('name');
       this.updateSidenavItems();
     }));
   }
 
   // THIS FUNCTION EXISTS BECAUSE this.location.path() doesn't return correct url when logging in and doesn't update accordingly the header and sidenav
   public toHome() {
-    if (false) {
+    if (!this.name || this.name == "") {
       this.homeURL = true;
       this.loginURL = false;
       this.registerURL = false;
@@ -88,7 +88,7 @@ export class AppComponent extends BaseComponent {
           clicked: this.registerURL
         },
       ];
-    } else if (true) {
+    } else if (this.name && this.name != "") {
       this.homeURL = true;
       this.exploreURL = false;
       this.favoritesURL = false;
@@ -114,7 +114,7 @@ export class AppComponent extends BaseComponent {
   }
 
   public updateSidenavItems() {
-    if (false) {
+    if (!this.name || this.name == "") {
       if (this.location.path() == "/home") {
         this.homeURL = true;
         this.loginURL = false;
@@ -146,7 +146,7 @@ export class AppComponent extends BaseComponent {
           clicked: this.registerURL
         },
       ];
-    } else if (true) {
+    } else if (this.name && this.name != "") {
       if (this.location.path() == "/home") {
         this.homeURL = true;
         this.exploreURL = false;
@@ -190,7 +190,7 @@ export class AppComponent extends BaseComponent {
 
     this.sideNavItems[index].clicked = true;
 
-    if (false) {
+    if (!this.name || this.name == "") {
       switch (this.sideNavItems[index].text) {
         case "Home":
           if (this.location.path() == "/home") {
@@ -232,7 +232,7 @@ export class AppComponent extends BaseComponent {
           }
           break;
       }
-    } else if (true) {
+    } else if (this.name && this.name != "") {
       switch (this.sideNavItems[index].text) {
         case "Home":
           if (this.location.path() == "/home") {

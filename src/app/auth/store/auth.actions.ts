@@ -18,12 +18,25 @@ export const register = createAction(
   }>()
 );
 
+export const getUser = createAction(
+  '[Auth Component] Get User',
+  props<{
+    id: number
+  }>()
+);
+
+export const getUserSuccess = createAction(
+  '[Auth Component] Get User Success',
+  props<{
+    user: any
+  }>()
+);
+
 export const authSuccess = createAction(
   '[Auth Component] Auth Success',
   props<{
     accessToken: string,
     id: number,
-    role: string
   }>()
 );
 

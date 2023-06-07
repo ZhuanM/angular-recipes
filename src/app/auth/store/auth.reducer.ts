@@ -5,12 +5,14 @@ export interface State {
   accessToken: string;
   authError: string;
   isLoading: boolean;
+  user: any;
 }
 
 export const initialState: State = {
   accessToken: null,
   authError: null,
   isLoading: false,
+  user: null,
 }
 
 const _authReducer = createReducer(
@@ -58,6 +60,15 @@ const _authReducer = createReducer(
       isLoading: false,
       user: null,
       id: null
+    })
+  ),
+
+  on(
+    AuthActions.getUserSuccess,
+    (state, action) => ({
+      ...state,
+      isLoading: false,
+      user: action.user,
     })
   ),
 );

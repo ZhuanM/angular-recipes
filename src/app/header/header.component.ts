@@ -11,6 +11,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
 import { User } from '../shared/models/user.interface';
 import { AppState } from '../shared/models/app-state.interface';
+import { user } from '../auth/store/auth.selectors';
 
 @Component({
   selector: 'app-header',
@@ -23,9 +24,8 @@ export class HeaderComponent extends BaseComponent {
   private subscription = new Subscription();
   
   readonly sidenavOpened$: Observable<boolean> = this.store.pipe(select(HeaderSelectors.sidenavOpened), takeUntil(this.destroyed$));
-  // readonly user$: Observable<User> = this.store.pipe(select(user), takeUntil(this.destroyed$));
+  readonly user$: Observable<User> = this.store.pipe(select(user), takeUntil(this.destroyed$));
   
-  public role: string;
   public name: string;
   
   public isMobile: boolean = false;
@@ -38,14 +38,12 @@ export class HeaderComponent extends BaseComponent {
   ) {
     super();
 
-    // this.user$.pipe(takeUntil(this.destroyed$)).subscribe(user => {
-    //   this.role = localStorage.getItem('role');
-    //   this.name = localStorage.getItem('name');
-    // });
+    this.user$.pipe(takeUntil(this.destroyed$)).subscribe(user => {
+      this.name = localStorage.getItem('name');
+    });
 
     this.subscription.add(this.actionsSubject$.pipe(filter((action) => action.type === '[Auth Component] Logout Success'))
       .subscribe(() => {
-        this.role = localStorage.getItem('role');
         this.name = localStorage.getItem('name');
       }));
   }

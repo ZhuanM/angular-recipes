@@ -4,7 +4,7 @@ import { State } from "./favorites.reducer";
 
 const favoritesSelector = createFeatureSelector<AppState, State>('favorites');
 
-// export const favoritesName = createSelector(
-//   favoritesSelector,
-//   (state: State) => state.schoolName
-// );
+export const favoritedRecipes = createSelector(
+  favoritesSelector,
+  (state: State) => state.favoritedRecipes
+);

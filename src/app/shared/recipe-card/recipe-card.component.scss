@@ -39,15 +39,6 @@
     text-overflow: ellipsis;
   }
 
-  .rating {
-    display: flex;
-    justify-content: flex-start;
-
-    mat-icon {
-      color: #ffd740; 
-    }
-  }
-
   .tag-list {
     display: flex;
     flex-wrap: wrap; 

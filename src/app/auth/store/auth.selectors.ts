@@ -13,3 +13,8 @@ export const isLoading = createSelector(
   authFeatureSelector,
   (state: State) => state.isLoading
 );
+
+export const user = createSelector(
+  authFeatureSelector,
+  (state: State) => state.user
+);

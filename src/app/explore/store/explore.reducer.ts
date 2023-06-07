@@ -1,8 +1,9 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import * as ExploreActions from './explore.actions';
+import { Recipe } from 'src/app/shared/models/recipe.interface';
 
 export interface State {
-  randomRecipes: any
+  randomRecipes: Array<Recipe>
 }
 
 export const initialState: State = {

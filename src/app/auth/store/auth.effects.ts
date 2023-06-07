@@ -27,7 +27,6 @@ export class AuthEffects {
               {
                 accessToken: response.jwtToken,
                 id: response.userId,
-                role: response.role
               }
             )
           }),
@@ -41,27 +40,27 @@ export class AuthEffects {
     )
   );
 
-  // authSuccess$ = createEffect(() =>
-  // this.actions$.pipe(
-  //   ofType(AuthActions.authSuccess),
-  //   switchMap(action => {
-  //     return this.authService.getUser(action.role, action.id)
-  //       .pipe(
-  //         map(response => {
-  //           setUserLocalStorageData(response);
+  authSuccess$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(AuthActions.authSuccess),
+    switchMap(action => {
+      return this.authService.getUser(action.id)
+        .pipe(
+          map(response => {
+            setUserLocalStorageData(response);
 
-  //           this.appService.openSnackBar("Successfully logged in!", MessageType.Success);
+            this.appService.openSnackBar("Successfully logged in!", MessageType.Success);
 
-  //           return AuthActions.getUserSuccess(
-  //             {
-  //               user: response
-  //             }
-  //           )
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
+            return AuthActions.getUserSuccess(
+              {
+                user: response
+              }
+            )
+          })
+        );
+      })
+    )
+  );
 
   logout$ = createEffect(() =>
   this.actions$.pipe(
@@ -118,7 +117,6 @@ export class AuthEffects {
 
   private setInitialLocalStorageData(authData: Auth) {
     localStorage.setItem('access_token', authData.jwtToken);
-    localStorage.setItem('role', authData.role);
     localStorage.setItem('userId', authData.userId);
   }
 }

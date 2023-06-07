@@ -6,8 +6,9 @@ import { BaseComponent } from '../shared/base.component';
 import { AppState } from '../shared/models/app-state.interface';
 import * as ExploreSelectors from '../explore/store/explore.selectors';
 import * as ExploreActions from '../explore/store/explore.actions';
-import { mockData } from '../shared/api/api-response-example';
 import { Router } from '@angular/router';
+import { Recipe } from '../shared/models/recipe.interface';
+import { appLoading } from '../shared/loader/store/loader.actions';
 
 @Component({
   selector: 'app-explore',
@@ -15,14 +16,29 @@ import { Router } from '@angular/router';
   styleUrls: ['./explore.component.scss']
 })
 export class ExploreComponent extends BaseComponent {
-  readonly randomRecipes$: Observable<any> = this.store.pipe(select(ExploreSelectors.randomRecipes), takeUntil(this.destroyed$));
+  readonly randomRecipes$: Observable<Array<Recipe>> = this.store.pipe(select(ExploreSelectors.randomRecipes), takeUntil(this.destroyed$));
 
-  public recipes: Array<any> = []; // replace with your recipe type
-  public page = 0;
-  public isLoadingData = false; // new flag to indicate if we are currently loading data
+  public recipes: Array<Recipe> = [];
+  public isLoadingData = false;
 
   constructor(private store: Store<AppState>, private router: Router) { 
     super();
+
+    this.randomRecipes$.pipe(takeUntil(this.destroyed$)).subscribe(randomRecipes => {
+      const recipesWithTags = randomRecipes.map(recipe => {
+        const tags: Array<string> = [];
+        
+        if (recipe.vegetarian) tags.push('Vegetarian');
+        if (recipe.vegan) tags.push('Vegan');
+        if (recipe.glutenFree) tags.push('Gluten Free');
+        if (recipe.dairyFree) tags.push('Dairy Free');
+
+        return { ...recipe, tags }; // return the recipe with added tags property
+      });
+  
+      this.recipes = [...this.recipes, ...recipesWithTags];
+      this.isLoadingData = false;
+    });
   }
 
   ngOnInit() {
@@ -30,32 +46,25 @@ export class ExploreComponent extends BaseComponent {
   }
 
   public loadMore() {
-    // TODO Add actions with real API calls when done (+ add an app loader)
     if (this.isLoadingData) {
       return; // Don't load more if we're already loading
     }
-    this.isLoadingData = true; // Set loading to true to start loading
 
-    const data = mockData;
-    const recipesWithTags = data.results.map(recipe => {
-      const tags = [];
-      if (recipe.vegetarian) tags.push('Vegetarian');
-      if (recipe.vegan) tags.push('Vegan');
-      if (recipe.glutenFree) tags.push('Gluten Free');
-      if (recipe.dairyFree) tags.push('Dairy Free');
-      return { ...recipe, tags };  // return the recipe with added tags property
-    });
-
-    this.recipes = [...this.recipes, ...recipesWithTags];
-    this.page++;
-    this.isLoadingData = false;
+    this.isLoadingData = true;
+    this.store.dispatch(appLoading({ loading: true }));
+    this.store.dispatch(ExploreActions.getRandomRecipes());
   }
 
-  public openRecipe(recipe: any) {
+  public openRecipe(recipe: Recipe) {
     this.router.navigate(['/recipe', recipe.id]);
   }
 
-  public onToggleFavorite(recipe: any) {
-    // TODO Handle the toggle of favorite here. Eg: send a request to your API
+  public onToggleFavorite({recipe, isFavorited}: {recipe: Recipe, isFavorited: boolean}) {
+    this.store.dispatch(appLoading({ loading: true }));
+    if (isFavorited) {
+      this.store.dispatch(ExploreActions.addToFavorites({ recipe: recipe }));
+    } else {
+      this.store.dispatch(ExploreActions.removeFromFavorites({ id: recipe.id }));
+    }
   }
 }
