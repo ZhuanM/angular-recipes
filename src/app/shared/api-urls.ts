@@ -8,5 +8,6 @@ export const apiUrls = {
   // Recipes
   getRandomRecipesUrl: 'https://api.spoonacular.com/recipes/random',
   getRecipeUrl: 'https://api.spoonacular.com/recipes/',
+  searchRecipesUrl: 'https://api.spoonacular.com/recipes/complexSearch',
   favoriteRecipesUrl: environment.apiBaseUrl + 'recipes', // GET, DELETE, POST
 }

@@ -3,11 +3,13 @@ import * as ExploreActions from './explore.actions';
 import { Recipe } from 'src/app/shared/models/recipe.interface';
 
 export interface State {
-  randomRecipes: Array<Recipe>
+  randomRecipes: Array<Recipe>,
+  searchedRecipes: Array<Recipe>
 }
 
 export const initialState: State = {
-  randomRecipes: null
+  randomRecipes: null,
+  searchedRecipes: null
 }
 
 const _exploreReducer = createReducer(
@@ -18,6 +20,14 @@ const _exploreReducer = createReducer(
     (state, action) => ({
       ...state,
       randomRecipes: action.randomRecipes
+    })
+  ),
+
+  on(
+    ExploreActions.searchRecipesSuccess,
+    (state, action) => ({
+      ...state,
+      searchedRecipes: action.searchedRecipes
     })
   ),
 );

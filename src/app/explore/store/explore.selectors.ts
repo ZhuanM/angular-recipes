@@ -8,3 +8,8 @@ export const randomRecipes = createSelector(
   exploreSelector,
   (state: State) => state.randomRecipes
 );
+
+export const searchedRecipes = createSelector(
+  exploreSelector,
+  (state: State) => state.searchedRecipes
+);

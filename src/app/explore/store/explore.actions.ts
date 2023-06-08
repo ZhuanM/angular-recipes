@@ -33,3 +33,17 @@ export const removeFromFavorites = createAction(
 export const removeFromFavoritesSuccess = createAction(
   '[Explore Component] Remove From Favorites Success'
 );
+
+export const searchRecipes = createAction(
+  '[Explore Component] Search Recipes',
+  props<{
+    query: string
+  }>()
+);
+
+export const searchRecipesSuccess = createAction(
+  '[Explore Component] Search Recipes Success',
+  props<{
+    searchedRecipes: Array<Recipe>
+  }>()
+);

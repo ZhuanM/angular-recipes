@@ -57,4 +57,19 @@ export class ExploreEffects {
       })
     )
   );
+
+  searchRecipes$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ExploreActions.searchRecipes),
+      switchMap((action) => {
+        return this.recipeService.searchRecipes(action.query).pipe(
+          map((response) => {
+            return ExploreActions.searchRecipesSuccess({
+              searchedRecipes: response.results
+            });
+          })
+        );
+      })
+    )
+  );
 }

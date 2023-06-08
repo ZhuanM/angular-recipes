@@ -34,6 +34,18 @@ export class RecipeService {
     )
   }
 
+  searchRecipes(query: string) {
+    return this.http.get<any>(
+      apiUrls.searchRecipesUrl, {
+      params: {
+        apiKey: 'a31f8125c4294d1f8b60075c8d52e584',
+        number: '8',
+        addRecipeInformation: true,
+        query: query
+      }
+    });
+  }
+
   addToFavorites(recipe: Recipe) {
     const recipeCopy = { ...recipe };
     delete recipeCopy.tags;
