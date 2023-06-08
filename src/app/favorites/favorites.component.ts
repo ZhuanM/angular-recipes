@@ -9,6 +9,7 @@ import { Recipe } from '../shared/models/recipe.interface';
 import { Router } from '@angular/router';
 import * as FavoritesSelectors from '../favorites/store/favorites.selectors';
 import * as FavoritesActions from '../favorites/store/favorites.actions';
+import { arraysAreEqual } from '../shared/utility';
 
 @Component({
   selector: 'app-favorites',
@@ -26,7 +27,7 @@ export class FavoritesComponent extends BaseComponent {
     super();
 
     this.favoritedRecipes$.pipe(takeUntil(this.destroyed$)).subscribe(favoritedRecipes => {
-      if (favoritedRecipes) {
+      if (favoritedRecipes && !arraysAreEqual(this.recipes, favoritedRecipes)) {
         const recipesWithTags = favoritedRecipes.map(recipe => {
           if (!recipe.hasOwnProperty('tags')) {
             const tags: Array<string> = [];
