@@ -4,4 +4,7 @@
       <app-recipe-card [recipe]="recipe" (toggleFavorite)="onToggleFavorite($event)" (onOpenRecipe)="openRecipe($event)"></app-recipe-card>
     </div>
   </div>
+  <div *ngIf="!isLoadingData && recipes.length === 0" class="d-flex justify-content-center no-recipes-found">
+    No favorited recipes
+  </div>
 </div>

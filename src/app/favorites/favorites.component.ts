@@ -20,6 +20,8 @@ export class FavoritesComponent extends BaseComponent {
 
   public recipes: Array<Recipe> = [];
 
+  public isLoadingData = false;
+
   constructor(private store: Store<AppState>, private router: Router) { 
     super();
 
@@ -42,6 +44,7 @@ export class FavoritesComponent extends BaseComponent {
         });
     
         this.recipes = [...this.recipes, ...recipesWithTags];
+        this.isLoadingData = false;
       }
     });
   }
@@ -51,6 +54,11 @@ export class FavoritesComponent extends BaseComponent {
   }
 
   private loadMore() {
+    if (this.isLoadingData) {
+      return; // Don't load more if we're already loading
+    }
+
+    this.isLoadingData = true;
     this.store.dispatch(appLoading({ loading: true }));
     this.store.dispatch(FavoritesActions.getFavoritedRecipes());
   }

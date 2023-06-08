@@ -1,3 +1,12 @@
+.no-recipes-found {
+  color: red;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: bolder;
+}
+
 @media (max-width: 576px) {
   .card-container {
     display: flex;

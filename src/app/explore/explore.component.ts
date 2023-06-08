@@ -119,6 +119,7 @@ export class ExploreComponent extends BaseComponent {
   public onSearch() {
     if (this.searchQuery.trim()) { // Trim to avoid whitespace-only queries
       this.isSearchMode = true;
+      this.isLoadingData = true;
       this.recipes = []; // Clear the recipes array when starting a new search
       this.store.dispatch(appLoading({ loading: true }));
       this.store.dispatch(ExploreActions.searchRecipes({ query: this.searchQuery }));
