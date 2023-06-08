@@ -43,7 +43,7 @@
     <div class="col-12 col-md-6">
       <h2 class="font-montserrat font-weight-bold">Instructions</h2>
       <ol class="font-quicksand fs-15">
-        <li *ngFor="let step of recipe?.analyzedInstructions[0].steps">
+        <li *ngFor="let step of recipe?.analyzedInstructions[0]?.steps">
           {{step.step}}
         </li>
       </ol>
