@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { switchMap, map } from 'rxjs/operators';
 import * as FavoritesActions from './favorites.actions';
-import { RecipeService } from 'src/app/shared/services/recipe-page.service';
+import { RecipeService } from 'src/app/shared/services/recipe.service';
 
 @Injectable()
 export class FavoritesEffects {
