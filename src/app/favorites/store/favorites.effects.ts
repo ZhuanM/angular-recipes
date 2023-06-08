@@ -1,24 +1,30 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { switchMap, map } from 'rxjs/operators';
-import { FavoritesService } from '../favorites.service';
 import * as FavoritesActions from './favorites.actions';
+import { RecipeService } from 'src/app/shared/services/recipe-page.service';
 
 @Injectable()
 export class FavoritesEffects {
   constructor(
     private actions$: Actions,
-    private favoritesService: FavoritesService
+    private recipeService: RecipeService
   ) {}
 
-  getRandomRecipes$ = createEffect(() =>
+  getFavoritedRecipes$ = createEffect(() =>
     this.actions$.pipe(
       ofType(FavoritesActions.getFavoritedRecipes),
       switchMap((action) => {
-        return this.favoritesService.getFavoritedRecipes().pipe(
+        return this.recipeService.getFavoritedRecipes().pipe(
           map((response) => {
+            // Map each recipe to include 'isFavorite' property
+            const recipes = response.map((recipe: any) => ({
+              ...recipe,
+              isFavorite: true,
+            }));
+
             return FavoritesActions.getFavoritedRecipesSuccess({
-              favoritedRecipes: response.recipes,
+              favoritedRecipes: recipes
             });
           })
         );
@@ -30,7 +36,7 @@ export class FavoritesEffects {
     this.actions$.pipe(
       ofType(FavoritesActions.addToFavorites),
       switchMap((action) => {
-        return this.favoritesService.addToFavorites(action.recipe).pipe(
+        return this.recipeService.addToFavorites(action.recipe).pipe(
           map((response) => {
             return FavoritesActions.addToFavoritesSuccess();
           })
@@ -43,7 +49,7 @@ export class FavoritesEffects {
     this.actions$.pipe(
       ofType(FavoritesActions.removeFromFavorites),
       switchMap((action) => {
-        return this.favoritesService.removeFromFavorites(action.id).pipe(
+        return this.recipeService.removeFromFavorites(action.id).pipe(
           map((response) => {
             return FavoritesActions.removeFromFavoritesSuccess();
           })

@@ -25,8 +25,8 @@ export class AuthEffects {
 
             return AuthActions.authSuccess(
               {
-                accessToken: response.jwtToken,
-                id: response.userId,
+                accessToken: response.access_token,
+                id: response.sub,
               }
             )
           }),
@@ -115,8 +115,8 @@ export class AuthEffects {
     private router: Router
   ){}
 
-  private setInitialLocalStorageData(authData: Auth) {
-    localStorage.setItem('access_token', authData.jwtToken);
-    localStorage.setItem('userId', authData.userId);
+  private setInitialLocalStorageData(authData: any) {
+    localStorage.setItem('access_token', authData.access_token);
+    localStorage.setItem('userId', authData.sub);
   }
 }

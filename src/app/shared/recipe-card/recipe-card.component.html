@@ -1,14 +1,14 @@
 <mat-card class="recipe-card">
-  <div class="image-container">
+  <div class="image-container pointer" (click)="openRecipe()">
     <img class="card-image" [src]="recipe.image" [alt]="recipe.title">
   </div>
-  <button class="favorite-icon" mat-icon-button (click)="onClickHeart(); $event.stopPropagation()">
+  <button class="favorite-icon" mat-icon-button (click)="onClickHeart($event)">
     <mat-icon>
       {{ recipe.isFavorite ? 'favorite' : 'favorite_border' }}
     </mat-icon>
   </button>
   <mat-card-content>
-    <h4 class="card-title font-montserrat">{{recipe.title}}</h4>
+    <h4 class="card-title font-montserrat pointer" (click)="openRecipe()">{{recipe.title}}</h4>
     <div class="rating">
       <mat-chip-list class="tag-list unselectable">
         <mat-chip *ngFor="let tag of recipe.tags.slice(0,3)">{{tag}}</mat-chip>

@@ -20,8 +20,8 @@ export class RegisterComponent extends BaseComponent {
     username: new UntypedFormControl('', [Validators.required]),
     email: new UntypedFormControl('', [Validators.required, Validators.email]),
     passwords: new UntypedFormGroup({
-      password: new UntypedFormControl('', [Validators.required]),
-      repeatPassword: new UntypedFormControl('', [Validators.required]),
+      password: new UntypedFormControl('', [Validators.required, Validators.min(9)]),
+      repeatPassword: new UntypedFormControl('', [Validators.required, Validators.min(9)]),
     }, this.passwordConfirming),
   });
   
@@ -86,9 +86,8 @@ export class RegisterComponent extends BaseComponent {
     }
 
     if (password.errors) {
-      return 'Please enter a minimum of eight characters, at least one letter, one number and one special character';
+      return 'Please enter a minimum of nine characters!';
     }
-    // return password.hasError('password') ? 'Please enter a minimum of eight characters, at least one letter, one number and one special character' : '';
   }
 
   public getRepeatPasswordErrorMessage() {

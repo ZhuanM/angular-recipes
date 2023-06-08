@@ -42,7 +42,7 @@ export class AuthService {
 
   getUser(id: number) {
     return this.http.get<any>(
-      apiUrls.userUrl + '/' + id.toString() + ''
+      apiUrls.userUrl + id.toString() + ''
     )
   }
 }

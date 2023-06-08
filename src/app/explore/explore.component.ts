@@ -63,7 +63,10 @@ export class ExploreComponent extends BaseComponent {
   }
 
   public openRecipe(recipe: Recipe) {
-    this.router.navigate(['/recipe', recipe.id]);
+    this.router.navigate(
+      ['/recipe', recipe.id],
+      { queryParams: { isFavorite: false } }
+    );
   }
 
   public onToggleFavorite({recipe, isFavorited}: {recipe: Recipe, isFavorited: boolean}) {

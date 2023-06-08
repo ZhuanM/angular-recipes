@@ -16,45 +16,52 @@ import * as RecipePageActions from '../recipe-page/store/recipe-page.actions';
   styleUrls: ['./recipe-page.component.scss'],
 })
 export class RecipePageComponent extends BaseComponent {
-  readonly recipe$: Observable<Recipe> = this.store.pipe(
-    select(RecipePageSelectors.recipe),
-    takeUntil(this.destroyed$)
-  );
+  readonly recipe$: Observable<Recipe> = this.store.pipe(select(RecipePageSelectors.recipe),takeUntil(this.destroyed$));
 
   public recipe: Recipe;
+
+  private isFavorited: boolean;
 
   constructor(private store: Store<AppState>, private route: ActivatedRoute) {
     super();
 
     this.recipe$.pipe(takeUntil(this.destroyed$)).subscribe((recipe) => {
       if (recipe) {
-        this.recipe = recipe;
+        let tags = recipe.tags || [];
 
-        if (!this.recipe.hasOwnProperty('tags')) {
-          this.recipe.tags = [];
-
-          if (this.recipe.vegetarian) this.recipe.tags.push('Vegetarian');
-          if (this.recipe.vegan) this.recipe.tags.push('Vegan');
-          if (this.recipe.glutenFree) this.recipe.tags.push('Gluten Free');
-          if (this.recipe.dairyFree) this.recipe.tags.push('Dairy Free');
+        if (tags.length === 0) {
+          if (recipe.vegetarian) tags.push('Vegetarian');
+          if (recipe.vegan) tags.push('Vegan');
+          if (recipe.glutenFree) tags.push('Gluten Free');
+          if (recipe.dairyFree) tags.push('Dairy Free');
         }
+
+        this.recipe = { ...recipe, tags };
+
+        this.recipe.isFavorite = this.isFavorited;
       }
     });
   }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      this.isFavorited = params['isFavorite'] === 'true' ? true : false;
+    });
+
     const recipeId = this.route.snapshot.paramMap.get('id');
     this.store.dispatch(appLoading({ loading: true }));
-    // TODO ADD API CALL FOR GETTING RECIPE BY ID
+    this.store.dispatch(RecipePageActions.getRecipe({ id: recipeId }));
   }
 
   public onFavorite() {
-    this.recipe.isFavorite = !this.recipe.isFavorite;
+    let updatedRecipe = { ...this.recipe, isFavorite: !this.recipe.isFavorite };
 
-    if (this.recipe.isFavorite) {
-      this.store.dispatch(RecipePageActions.addToFavorites({ recipe: this.recipe }));
+    if (updatedRecipe.isFavorite) {
+      this.store.dispatch(RecipePageActions.addToFavorites({ recipe: updatedRecipe }));
     } else {
-      this.store.dispatch(RecipePageActions.removeFromFavorites({ id: this.recipe.id }));
+      this.store.dispatch(RecipePageActions.removeFromFavorites({ id: updatedRecipe.id }));
     }
+  
+    this.recipe = updatedRecipe;
   }
 }

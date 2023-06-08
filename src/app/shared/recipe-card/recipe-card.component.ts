@@ -11,11 +11,18 @@ import { Recipe } from '../models/recipe.interface';
 export class RecipeCardComponent {
   @Input() recipe: Recipe;
   @Output() toggleFavorite = new EventEmitter<{recipe: any, isFavorited: boolean}>();
+  @Output() onOpenRecipe: EventEmitter<Recipe> = new EventEmitter<Recipe>();
   
   constructor(private store: Store<AppState>) { }
 
-  public onClickHeart() {
-    this.recipe.isFavorite = !this.recipe.isFavorite;
+  public openRecipe() {
+    this.onOpenRecipe.emit(this.recipe);
+  }
+
+  public onClickHeart(event: any) {
+    let updatedRecipe = { ...this.recipe, isFavorite: !this.recipe.isFavorite };
+    this.recipe = updatedRecipe;
+
     this.toggleFavorite.emit({ recipe: this.recipe, isFavorited: this.recipe.isFavorite });
   }
 }

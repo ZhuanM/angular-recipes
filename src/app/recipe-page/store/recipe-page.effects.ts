@@ -1,24 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { switchMap, map } from 'rxjs/operators';
-import { RecipePageService } from '../recipe-page.service';
 import * as RecipePageActions from './recipe-page.actions';
+import { RecipeService } from 'src/app/shared/services/recipe-page.service';
 
 @Injectable()
 export class RecipePageEffects {
   constructor(
     private actions$: Actions,
-    private recipePageService: RecipePageService
+    private recipeService: RecipeService
   ) {}
 
   getRecipe$ = createEffect(() =>
     this.actions$.pipe(
       ofType(RecipePageActions.getRecipe),
       switchMap((action) => {
-        return this.recipePageService.getRecipe(action.id).pipe(
+        return this.recipeService.getRecipe(action.id).pipe(
           map((response) => {
+            if (!response.hasOwnProperty('isFavorite')) {
+              response.isFavorite = false;
+            }
             return RecipePageActions.getRecipeSuccess({
-              recipe: response.recipe,
+              recipe: response
             });
           })
         );
@@ -30,7 +33,7 @@ export class RecipePageEffects {
     this.actions$.pipe(
       ofType(RecipePageActions.addToFavorites),
       switchMap((action) => {
-        return this.recipePageService.addToFavorites(action.recipe).pipe(
+        return this.recipeService.addToFavorites(action.recipe).pipe(
           map((response) => {
             return RecipePageActions.addToFavoritesSuccess();
           })
@@ -43,7 +46,7 @@ export class RecipePageEffects {
     this.actions$.pipe(
       ofType(RecipePageActions.removeFromFavorites),
       switchMap((action) => {
-        return this.recipePageService.removeFromFavorites(action.id).pipe(
+        return this.recipeService.removeFromFavorites(action.id).pipe(
           map((response) => {
             return RecipePageActions.removeFromFavoritesSuccess();
           })
