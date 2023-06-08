@@ -24,12 +24,15 @@ export class ExploreComponent extends BaseComponent {
 
   public searchQuery: string = '';
   public isSearchMode: boolean = false;
+  public showLoadMoreButton: boolean = true;
 
   constructor(private store: Store<AppState>, private router: Router) { 
     super();
 
     this.randomRecipes$.pipe(takeUntil(this.destroyed$)).subscribe(randomRecipes => {
       if (randomRecipes && !this.isSearchMode) {
+        this.showLoadMoreButton = randomRecipes.length >= 8;
+
         const recipesWithTags = randomRecipes.map(recipe => {
           if (!recipe.hasOwnProperty('tags')) {
             const tags: Array<string> = [];
@@ -53,6 +56,8 @@ export class ExploreComponent extends BaseComponent {
 
     this.searchedRecipes$.pipe(takeUntil(this.destroyed$)).subscribe(searchedRecipes => {
       if (searchedRecipes && this.isSearchMode) {
+        this.showLoadMoreButton = searchedRecipes.length >= 8;
+
         const recipesWithTags = searchedRecipes.map(recipe => {
           if (!recipe.hasOwnProperty('tags')) {
             const tags: Array<string> = [];
@@ -115,6 +120,7 @@ export class ExploreComponent extends BaseComponent {
     if (this.searchQuery.trim()) { // Trim to avoid whitespace-only queries
       this.isSearchMode = true;
       this.recipes = []; // Clear the recipes array when starting a new search
+      this.store.dispatch(appLoading({ loading: true }));
       this.store.dispatch(ExploreActions.searchRecipes({ query: this.searchQuery }));
     } else {
       this.clearSearch(); // Use the clearSearch() method when the search query is empty

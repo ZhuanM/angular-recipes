@@ -56,6 +56,7 @@ export class RecipePageComponent extends BaseComponent {
   public onFavorite() {
     let updatedRecipe = { ...this.recipe, isFavorite: !this.recipe.isFavorite };
 
+    this.store.dispatch(appLoading({ loading: true }));
     if (updatedRecipe.isFavorite) {
       this.store.dispatch(RecipePageActions.addToFavorites({ recipe: updatedRecipe }));
     } else {

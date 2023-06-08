@@ -1,12 +1,13 @@
 <div class="container">
-  <div class="search-container">
-    <input [(ngModel)]="searchQuery" placeholder="Search for a recipe" (keydown.enter)="onSearch()">
-    <button mat-icon-button (click)="onSearch()">
-      <mat-icon>search</mat-icon>
-    </button>
-    <button mat-icon-button *ngIf="isSearchMode" (click)="clearSearch()">
-      <mat-icon>close</mat-icon>
-    </button>
+  <div class="mb-3 d-flex justify-content-end">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-icon matPrefix>search</mat-icon>
+      <mat-label>Search for recipes</mat-label>
+      <input matInput [(ngModel)]="searchQuery" (keydown.enter)="onSearch()">
+      <button *ngIf="isSearchMode" mat-icon-button matSuffix (click)="clearSearch()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
   </div>
   <div class="row justify-content-sm-start justify-content-center">
     <div *ngFor="let recipe of recipes" class="card-container col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3">
@@ -15,7 +16,7 @@
   </div>
   <div class="row">
     <div class="col-12 text-center">
-      <button mat-raised-button class="red-nbu-button white-color" (click)="loadMore()">Load more</button>
+      <button *ngIf="showLoadMoreButton" mat-raised-button class="red-nbu-button white-color" (click)="loadMore()">Load more</button>
     </div>
   </div>
 </div>
