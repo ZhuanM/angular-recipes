@@ -6,6 +6,8 @@ import { apiUrls } from '../api-urls';
 
 @Injectable({ providedIn: 'root' })
 export class RecipeService {
+  private readonly apiKey = 'a8b7916ef0d8436593f77595bdda95cc';
+
   constructor(
     private http: HttpClient,
   ) {}
@@ -14,7 +16,7 @@ export class RecipeService {
     return this.http.get<any>(
       apiUrls.getRecipeUrl + id.toString() + '/information', {
       params: {
-        apiKey: 'a31f8125c4294d1f8b60075c8d52e584'
+        apiKey: this.apiKey
       }
     });
   }
@@ -23,7 +25,7 @@ export class RecipeService {
     return this.http.get<any>(apiUrls.getRandomRecipesUrl, {
       params: {
         number: '8',
-        apiKey: 'a31f8125c4294d1f8b60075c8d52e584'
+        apiKey: this.apiKey
       }
     });
   }
@@ -38,7 +40,7 @@ export class RecipeService {
     return this.http.get<any>(
       apiUrls.searchRecipesUrl, {
       params: {
-        apiKey: 'a31f8125c4294d1f8b60075c8d52e584',
+        apiKey: this.apiKey,
         number: '8',
         addRecipeInformation: true,
         query: query
